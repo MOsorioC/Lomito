@@ -1,8 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif !important;
+  background: url("../images/background.svg");
+  font-weight: 100 !important;
 }
 
-a {
-  color: #00B7FF;
+h1 {
+  font-size: 36px !important;
+  color: #333333 !important;
+  font-weight: 100 !important;
+}
+
+h2 {
+  font-size: 26px !important;
+  color: #333333 !important;
+  font-weight: 100 !important;
+}
+
+p {
+  color: #333333 !important;
+}
+
+.logotipo {
+  width: 111px;
+}
+
+.align-center {
+  margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.circle {
+  height: 100px;
+  width: 100px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.container-login {
+  padding: 24px;
+  margin: 5%;
+  background: #fff;
+  -webkit-box-shadow: 0px 3px 4px 0px #000000; 
+  box-shadow: 0px 3px 4px 0px #9e9c9c;
+}
+
+.a-primary {
+  color: #8230DF !important;
+}
+
+.btn-dark {
+  color: #FFFF !important;
+  background: #8230DF !important;
+  border-color: #8230DF !important;
+  border-radius: 100px !important;
+}
+
+.btn-primary-outlet {
+  color: #8230DF !important;
+  border-color: #8230DF !important;
+  border-radius: 100px !important;
+}
+
+.btn-primary-outlet:hover {
+  color: #FFFF !important;
+  background: #8230DF !important;
+}
+
+input {
+  padding:10px 10px 10px 5px !important;
+  display:block !important;
+  border:none !important;
+  border-radius: 0px !important;
+  border-bottom:1px solid #757575 !important;
+}
+
+input:focus { 
+  outline:none; 
+  border-bottom:1px solid #8230DF !important;
+  box-shadow: none !important;
+  color: #8230DF !important;
+}
+
+::placeholder {
+  color: #757575 !important;
+  opacity: 1; /* Firefox */
+}
+
+select {
+  padding:10px 10px 10px 5px !important;
+  display:block !important;
+  border:none !important;
+  border-bottom:1px solid #757575 !important;
+  border-radius: 0px !important;
+}
+
+.m-l-64 {
+  margin-left: 64px !important;
+}
+
+.m-r-64 {
+  margin-right: 64px !important;
+}
+
+.btn-small-width {
+  width: 30% !important;
+}
+
+
+/**
+* Queries
+*/
+
+@media only screen and (max-width: 600px) {
+  .btn-small-width {
+    width: 100% !important;
+  } 
 }
