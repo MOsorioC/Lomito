@@ -1,0 +1,39 @@
+<h1>Mascotas</h1>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Caracteristicas</th>
+        <th>descripcion</th>
+        <th>raza</th>
+        <th>talla</th>
+        <th>image</th>
+        <th>lugar Adopcion</th>
+        <th>horas vistias</th>
+        <th>mail</th>
+        <th>requerimientos</th>
+        
+    </tr>
+    {{#each mascotas}}
+    <tr>
+        <td>{{this.nombre}}</td>
+        <td>{{this.edad}}</td>
+        <td>{{this.caracteristicas}}</td>
+        <td>{{this.descripcion}}</td>
+        <td>{{this.raza}}</td>
+        <td>{{this.talla}}</td>
+        <td>{{this.image}}</td>
+        <td>{{this.lugarAdopcion}}</td>
+        <td>{{this.horasVisitas}}</td>
+        <td>{{this.mail}}</td>
+        <td>{{this.requerimientos}}</td>
+        <td><a href='/mascotas/{{this._id}}'>Ver más</a></td>
+        <td>
+            <form action="/mascotas/{{this._id}}/delete" method="post">
+                <button type="submit">remove</button>
+            </form>
+        </td>
+      
+    </tr>
+    {{/each}}
+</table>
