@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
+:root {
+  --text-bg-color: #333333;
+  --acent-bg-color: #8230DF; }
+
 body {
   font-family: 'Roboto', sans-serif !important;
   background: url("../images/background.svg");
@@ -6,19 +10,20 @@ body {
 
 h1 {
   font-size: 36px !important;
-  color: #333333 !important;
+  color: var(--text-bg-color) !important;
   font-weight: 100 !important; }
 
 h2 {
   font-size: 26px !important;
-  color: #333333 !important;
+  color: var(--text-bg-color) !important;
   font-weight: 100 !important; }
 
 p {
-  color: #333333 !important; }
+  color: var(--text-bg-color) !important; }
 
-.logotipo {
-  width: 111px; }
+img.logotipo {
+  width: 111px;
+  height: 111px; }
 
 .align-center {
   margin-left: auto;
@@ -40,22 +45,22 @@ p {
   box-shadow: 0px 3px 4px 0px #9e9c9c; }
 
 .a-primary {
-  color: #8230DF !important; }
+  color: var(--acent-bg-color) !important; }
 
 .btn-dark {
   color: #FFFF !important;
-  background: #8230DF !important;
-  border-color: #8230DF !important;
+  background: var(--acent-bg-color) !important;
+  border-color: var(--acent-bg-color) !important;
   border-radius: 100px !important; }
 
 .btn-primary-outlet {
-  color: #8230DF !important;
-  border-color: #8230DF !important;
+  color: var(--acent-bg-color) !important;
+  border-color: var(--acent-bg-color) !important;
   border-radius: 100px !important; }
 
 .btn-primary-outlet:hover {
   color: #FFFF !important;
-  background: #8230DF !important; }
+  background: var(--acent-bg-color) !important; }
 
 input {
   padding: 10px 10px 10px 5px !important;
@@ -66,21 +71,37 @@ input {
 
 input:focus {
   outline: none;
-  border-bottom: 1px solid #8230DF !important;
+  border-bottom: 1px solid var(--acent-bg-color) !important;
   box-shadow: none !important;
-  color: #8230DF !important; }
+  color: var(--acent-bg-color) !important; }
 
 ::placeholder {
   color: #757575 !important;
   opacity: 1;
   /* Firefox */ }
 
-select {
-  padding: 10px 10px 10px 5px !important;
-  display: block !important;
-  border: none !important;
-  border-bottom: 1px solid #757575 !important;
-  border-radius: 0px !important; }
+select.select-text {
+  border: none;
+  border-bottom: 1px solid #757575;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px; }
+
+select.select-text:focus {
+  border-bottom: 1px solid var(--acent-bg-color); }
+
+select.minimal {
+  background-image: linear-gradient(45deg, transparent 50%, var(--acent-bg-color) 50%), linear-gradient(135deg, var(--acent-bg-color) 50%, transparent 50%), linear-gradient(to right, #fff, #fff);
+  background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+  background-size: 5px 5px, 5px 5px, 1px 1.5em;
+  background-repeat: no-repeat; }
+
+select.minimal:focus {
+  background-image: linear-gradient(45deg, var(--acent-bg-color) 50%, transparent 50%), linear-gradient(135deg, transparent 50%, var(--acent-bg-color) 50%), linear-gradient(to right, #fff, #fff);
+  background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, calc(100% - 2.5em) 0.5em;
+  background-size: 5px 5px, 5px 5px, 1px 1.5em;
+  background-repeat: no-repeat;
+  outline: 0; }
 
 .m-l-64 {
   margin-left: 64px !important; }
@@ -91,11 +112,51 @@ select {
 .btn-small-width {
   width: 30% !important; }
 
+ul.steps {
+  padding: 0px;
+  margin-top: 5px; }
+
+ul.steps > li {
+  width: 1.5em;
+  height: 1.5em;
+  text-align: center;
+  line-height: 1.5em;
+  border-radius: 1em;
+  background: var(--acent-bg-color);
+  margin: 0 1em;
+  display: inline-block;
+  color: white;
+  position: relative; }
+
+.uploader {
+  position: relative;
+  text-align: center;
+  padding: 1em 0;
+  margin: 1em 0;
+  color: #555;
+  border: 2px dashed #888;
+  border-radius: 7px;
+  cursor: default; }
+
+#filePhoto {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  width: 100%;
+  top: 0;
+  bottom: 0; }
+
 /**
 * Queries
 */
 @media only screen and (max-width: 600px) {
   .btn-small-width {
-    width: 100% !important; } }
+    width: 100% !important; }
+  .m-r-64 {
+    margin-right: 6px !important; }
+  .m-l-64 {
+    margin-left: 6px !important; } }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10 container-login border rounded border-light">
+            <div class="col-12 justify-content-center">
+                <img id="profile-photo" class="logotipo rounded-circle align-center" src="https://pbs.twimg.com/profile_images/700451535994671104/YkR_JUwH_400x400.png">
+                <div class="col-12 text-center">
+                    <h1>Pets-AB</h1>
+                    <h2>Sign Up</h2>
+                </div>
+                <div class="col-12 text-center">
+                    <ul class="steps">
+                        <li class="active">1</li>
+                        <li class="">2</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 mt-5">
+                <form action="/signup" method="post" class="m-l-64 m-r-64">
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="estado">Estado</label>
+                                <select class="form-control select-text minimal" name="estado" id="estado">
+                                    <option selected disabled>Selecciona tu estado</option>
+                                    {{#each estados}}
+                                        <option value="{{this.id}}">{{this.name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="phone">Teléfono</label>
+                                <input type="number" name="phone" id="phone" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="about-me">Descripcion sobre mí</label>
+                                <textarea class="form-control" name="about-me"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="form-group">
+                                <label for="about-pet">Mi mascota ídeal</label>
+                                <textarea class="form-control" name="about-pet"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-12">
+                            <div class="form-group">
+                                <div onclick="$('#filePhoto').click()" class="uploader">
+                                    sube una pinshi imagen
+                                    <input class="teste" type="file" size="32" name="userprofile_picture" id="filePhoto" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-lg btn-small-width btn-outline-primary btn-primary-outlet btn-circle">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script>
+    window.onload = () => {
+        var imageLoader = document.getElementById('filePhoto');
+        imageLoader.addEventListener('change', (e) => {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                console.log(event.target.result)
+                $('#profile-photo').attr('src', event.target.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }, false);
+    }
+</script>
