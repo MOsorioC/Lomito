@@ -10,7 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 
 const Mascotas = require('./models/mascota')
-const Adoptantes = require('./models/adoptante')
+const Usuarios = require('./models/user')
 
 
 mongoose
