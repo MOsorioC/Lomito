@@ -1,0 +1,43 @@
+<h1>Adoptantes</h1>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>apellido</th>
+        <th>sexo</th>
+        <th>email</th>
+        <th>password</th>
+        <th>edad</th>
+        <th>contraseña</th>
+        <th>estado</th>
+        <th>descripcion</th>
+        <th>image</th>
+        <th>facebook</th>
+        <th>telefono</th>
+        <th>Tipo de usuario</th>
+
+
+    </tr>
+    {{#each usuarios}}
+    <tr>
+        <td>{{this.nombre}}</td>
+        <td>{{this.apellido}}</td>
+        <td>{{this.sexo}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.password}}</td>
+        <td>{{this.edad}}</td>
+        <td>{{this.estado}}</td>
+        <td>{{this.descripcion}}</td>
+        <td>{{this.image}}</td>
+        <td>{{this.facebook}}</td>
+        <td>{{this.telefono}}</td>
+        <td>{{this.typeUser}}</td>
+        <td><a href='/usuario/{{this._id}}'>Ver más</a></td>
+        <td>
+            <form action="/usuario/{{this._id}}/delete" method="post">
+                <button type="submit">remove</button>
+            </form>
+        </td>
+
+    </tr>
+    {{/each}}
+</table>

@@ -9,6 +9,9 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
+const Mascotas = require('./models/mascota')
+const Usuarios = require('./models/user')
+
 
 mongoose
   .connect(process.env.DB, {useNewUrlParser: true})
@@ -47,7 +50,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 // default value for title local
-app.locals.title = 'Pets-AB';
+app.locals.title = 'Pets A/B';
 
 
 

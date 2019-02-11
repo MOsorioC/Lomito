@@ -1,0 +1,27 @@
+<h1>Lista de adopcion</h1>
+<table>
+    <tr>
+        <th>Mensaje</th>
+        <th>fecha solicitud</th>
+        <th>fecha confirmada</th>
+        <th>adoptado</th>
+        <th>fecha de adopcion</th>
+        
+
+    </tr>
+    {{#each adopcion}}
+    <tr>
+        <td>{{this.mensaje}}</td>
+        <td>{{this.fecha_solicitud}}</td>
+        <td>{{this.fecha_confirmada}}</td>
+        <td>{{this.adoptado}}</td>
+        <td>{{this.fecha_adopcion}}</td>
+        <td><a href='/adopcion/{{this._id}}'>Ver más</a></td>
+        <td>
+            <form action="/adopcion/{{this._id}}/delete" method="post">
+                <button type="submit">remove</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>
