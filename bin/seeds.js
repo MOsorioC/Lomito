@@ -44,39 +44,38 @@ const Usuario = [
     }
 ]
 
-
-Usuarios.create(Usuario).then((user) => {
-    console.log(user);
-    mongoose.connection.close()
-}).catch((err) => {
-    console.log(err)
-})
-
-/**
- * const Pet = [
+const Pet = [
     {
         nombre: 'Momo',
         edad: 5,
         caracteristicas: 'amarillita',
         descripcion: 'perrito tranquilo',
         raza: 'golden',
-        talla:"chico",
-        image:"foto",
-        direccionAdopcion:"mexico",
-        horasInicio:"10am",
+        talla: "chico",
+        image: "foto",
+        direccionAdopcion: "mexico",
+        horasInicio: "10am",
         horasFin: "12am",
-        requerimientos:"tener un palacio"
-
+        requerimientos: "tener un palacio",
+        user_id: ''
     }
 ]
 
 
-
-
-Mascotas.create(Pet).then(() => {
-    console.log('se guardaron los pets')
-    mongoose.connection.close()
+Usuarios.create(Usuario).then((user) => {
+    //console.log(user);
+    //mongoose.connection.close()
+    Pet[0].user_id = user[0]._id
+    Mascotas.create(Pet).then((pet) => {
+        console.log(pet)
+        mongoose.connection.close()
+    }).catch((err) => {
+        console.log(err)
+    })
 }).catch((err) => {
     console.log(err)
-})  */
+})
+
+/**
+ *   */
 

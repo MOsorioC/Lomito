@@ -15,7 +15,22 @@ router.get('/login', (req, res, next) => {
 });
 
 router.get('/signup', (req, res, next) => {
-  res.render('Login/signup', { estados });
+  res.render('Login/signup');
+});
+
+router.post('/signup', (req, res, next) => {
+  const {name, sex, lastname, age, email, password} = req.body
+  
+  const user = new Usuarios()
+  user.nombre = name
+  user.apellidos = lastname
+  user.edad = age
+  user.email = email
+  user.password = password
+  user.sexo = sex
+
+  console.log(user)
+  //res.render('Login/signup');
 });
 
 router.get('/signup-step-2', (req, res, next) => {
@@ -26,7 +41,7 @@ router.get('/mascotas/new', (req, res) => {
   res.render('mascotas/new')
 })
 
-router.post('/mascotas/', (req, res) => {
+/*router.post('/mascotas/', (req, res) => {
   const { nombre, edad, caracteristicas, descripcion, raza, talla, image, lugarAdopcion, horasVisitas, mail, requerimientos } = req.body
   const newMascota = new Mascotas({ nombre, edad, caracteristicas, descripcion, raza, talla, image, lugarAdopcion, horasVisitas, mail, requerimientos })
   newMascota.save()
@@ -119,6 +134,6 @@ router.get('/adopcion', (req, res) => {
     .then(adopcion => {
       res.render('adopcion/listaAdopcion', { adopcion })
     })
-})
+})*/
 
 module.exports = router;
