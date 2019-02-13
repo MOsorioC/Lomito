@@ -196,6 +196,100 @@ ul.steps > li {
 }
 
 
+// landing-page
+
+
+.bg-container{
+  
+  background-image: url("../images/img-landing.png");
+  height: 100vh; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  top: -60px;
+}
+
+
+.img-logotipo{
+  width: 150px;
+  height: auto;
+}
+
+.bg-morado{
+  background: transparent !important;
+}
+
+.btn-outline-secondary {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: #ffffff !important;
+    border-radius: 50px !important;
+}
+
+
+.btn-outline-secondary:hover {
+    color: #fff !important;
+    background-color: #8230DF !important;
+    border-color: #8230DF !important;
+}
+
+.btn-outline-secondary.focus, .btn-outline-secondary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(130,48,223,.5) !important;
+}
+
+
+.nav-link{
+  color: #ffffff  !important;
+}
+
+.headline{
+  color: #fff !important;
+  font-size: 45px !important;
+  font-weight: 100 !important;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4) !important; 
+}
+
+.left-content{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 400px;
+   padding-top: 40%;
+}
+
+.max-button{
+  max-width: 300px !important;
+}
+
+
+.key-selling{
+  padding: 2em;
+}
+
+.ico-key{
+  padding: 24px;
+}
+
+h3{
+  font-weight: 100 !important
+}
+
+.rounded-img{
+  width: 200px;
+  height: 200px;
+  border-radius: 500px;
+}
+
+.historia-interna{
+  padding: 2em;
+}
+
+.history{
+  background: #F8F2FF;
+  padding-top: 2em;
+}
 /**
 * Queries
 */
@@ -212,4 +306,25 @@ ul.steps > li {
   .m-l-64 {
     margin-left: 6px !important;
   }
+
+
+  .bg-container{
+  
+  background:#7F7196;
+  height: 100vh; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  top: -60px;
+  text-align: center
+}
+
+.left-content{
+  text-align: center
+}
+
+.m-auto{
+  margin: 0 auto;
+}
 }
