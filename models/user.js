@@ -14,12 +14,13 @@ const usuarioSchema = new Schema({
   edad: String,
   estado: String,
   descripcion: String,
+  mascota_ideal: String,
   image: String,
   facebook: String,
   telefono: Number,
   typeUSer: {
     type: String,
-    enum: ['Normal', 'adoptar']
+    enum: ['normal', 'adoptar']
   },
 }, {
     timestamps: {

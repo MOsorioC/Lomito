@@ -5,6 +5,10 @@ const Mascotas = require('../models/mascota')
 const Usuarios = require('../models/user')
 const Adopcion = require('../models/adopcion')
 
+// Bcrypt to encrypt passwords
+const bcrypt = require("bcrypt");
+const bcryptSalt = 10;
+
 /* GET home page */
 router.get('/', (req, res, next) => {
   res.render('index');
@@ -21,20 +25,58 @@ router.get('/signup', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
   const {name, sex, lastname, age, email, password} = req.body
   
-  const user = new Usuarios()
-  user.nombre = name
-  user.apellidos = lastname
-  user.edad = age
-  user.email = email
-  user.password = password
-  user.sexo = sex
+  if (email === "" || password === "") {
+    res.render("Login/signup", { message: "Indicate username and password" });
+    return;
+  }
 
-  console.log(user)
-  //res.render('Login/signup');
+
+  Usuarios.findOne({ email })
+    .then(user => {
+      if (user !== null) {
+        res.render("Login/signup", { message: "The username already exists" });
+        return;
+      }
+
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
+      const newUser = new Usuarios()
+      newUser.nombre = name
+      newUser.apellidos = lastname
+      newUser.edad = age
+      newUser.email = email
+      newUser.password = hashPass
+      newUser.sexo = sex
+
+      //guardamos el nuevo usuario
+      newUser.save().then(newUser => {
+        res.render('Login/signup_step_2', { newUser, estados })
+      }).catch(ex => {
+        console.log(ex)
+        next(ex)
+      })
+    })
+    .catch(error => {
+      next(error)
+    })
 });
 
-router.get('/signup-step-2', (req, res, next) => {
-  res.render('Login/signup_step_2', { estados });
+router.post('/signup_step_2', (req, res, next) => {
+  const { _id, estado, phone, about_me, about_pet, userprofile_picture} = req.body
+
+  Usuarios.updateOne({ "_id": _id }, { estado: estado,
+      telefono: phone,
+      descripcion: about_me,
+      mascota_ideal: about_pet,
+      image: userprofile_picture})
+      .then( user => {
+        res.redirect('/')
+      })
+      .catch(err => {
+        console.log(err)
+        next(err)
+      })
 });
 
 router.get('/mascotas/new', (req, res) => {

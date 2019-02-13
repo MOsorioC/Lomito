@@ -67,6 +67,11 @@
                         <button type="submit" class="btn btn-lg btn-small-width btn-outline-primary btn-primary-outlet btn-circle">Enviar</button>
                     </div>
                 </form>
+                {{#if message}}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                {{/if}}
             </div>
         </div>
     </div>

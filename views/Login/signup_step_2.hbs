@@ -15,8 +15,9 @@
                 </div>
             </div>
             <div class="col-12 mt-5">
-                <form action="/signup" method="post" class="m-l-64 m-r-64">
+                <form action="/signup_step_2" method="post" class="m-l-64 m-r-64">
                     <div class="row">
+                        <input type="hidden" name="_id" value="{{newUser._id}}">
                         <div class="col-lg-6 col-xs-12">
                             <div class="form-group">
                                 <label for="estado">Estado</label>
@@ -38,14 +39,14 @@
                     <div class="row">
                         <div class="col-lg-6 col-xs-12">
                             <div class="form-group">
-                                <label for="about-me">Descripcion sobre mí</label>
-                                <textarea class="form-control" name="about-me"></textarea>
+                                <label for="about_me">Descripcion sobre mí</label>
+                                <textarea class="form-control" name="about_me"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-6 col-xs-12">
                             <div class="form-group">
-                                <label for="about-pet">Mi mascota ídeal</label>
-                                <textarea class="form-control" name="about-pet"></textarea>
+                                <label for="about_pet">Mi mascota ídeal</label>
+                                <textarea class="form-control" name="about_pet"></textarea>
                             </div>
                         </div>
                     </div>
