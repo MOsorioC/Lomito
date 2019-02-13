@@ -153,16 +153,14 @@ ul.steps > li {
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  top: -60px; }
+  background-size: cover; }
 
 .img-logotipo {
   width: 150px;
   height: auto; }
 
 .bg-morado {
-  background: transparent !important; }
+  background: #7F7196 !important; }
 
 .btn-outline-secondary {
   color: #ffffff !important;
