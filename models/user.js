@@ -8,7 +8,6 @@ const usuarioSchema = new Schema({
   sexo:{
     type: String,
     enum: ['H', 'M']
-  
   },
   email: String,
   password: String,
@@ -21,11 +20,7 @@ const usuarioSchema = new Schema({
   typeUSer: {
     type: String,
     enum: ['Normal', 'adoptar']
-
   },
-
-
-
 }, {
     timestamps: {
       createdAt: "created_at",

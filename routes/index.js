@@ -7,11 +7,23 @@ const Adopcion = require('../models/adopcion')
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('Login/signup_step_2', {estados});
+  res.render('index');
 });
+
+router.get('/login', (req, res, next) => {
+  res.render('Login/login');
+});
+
+router.get('/signup', (req, res, next) => {
+  res.render('Login/signup', { estados });
+});
+
+router.get('/signup-step-2', (req, res, next) => {
+  res.render('Login/signup_step_2', { estados });
+});
+
 router.get('/mascotas/new', (req, res) => {
   res.render('mascotas/new')
-
 })
 
 router.post('/mascotas/', (req, res) => {
@@ -29,7 +41,6 @@ router.get('/mascotas/:id', (req, res) => {
   }).catch(err => console.log(err))
 
 })
-
 
 router.post('/mascotas/:id/delete', (req, res) => {
   let idMascotas = req.params.id
