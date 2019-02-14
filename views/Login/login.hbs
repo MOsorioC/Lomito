@@ -12,16 +12,21 @@
                     <form action="/login" method="post">
                         <div class="form-group">
                           <label for="username">Usuario</label>
-                          <input type="text" class="form-control" name="username" id="username" placeholder="Escribe tu usuario">
+                          <input type="email" class="form-control" name="username" id="username" placeholder="Escribe tu usuario">
                         </div>
                         <div class="form-group">
                             <label for="password">Contraseña</label>
-                            <input type="text" class="form-control" name="password" id="password" placeholder="Escribe tu contraseña">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Escribe tu contraseña">
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-lg btn-block btn-outline-primary btn-primary-outlet btn-circle">Enviar</button>
                         </div>
                     </form>
+                    {{#if message}}
+                        <div class="alert alert-danger" role="alert">
+                            {{message}}
+                        </div>
+                    {{/if}}
                 </div>
                 <div class="col-12 text-center mt-5">
                     <a href="#" class="a-primary">Do you forgot your password?</a>

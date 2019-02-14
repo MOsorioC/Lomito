@@ -5,129 +5,153 @@ const Mascotas = require('../models/mascota')
 const Usuarios = require('../models/user')
 const Adopcion = require('../models/adopcion')
 
+const passport = require("passport");
+const ensureLogin = require('connect-ensure-login')
+
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('vista_mascota_interna');
+  res.render('landing');
 });
 
-router.get('/login', (req, res, next) => {
-  res.render('Login/login');
-});
 
-router.get('/signup', (req, res, next) => {
-  res.render('Login/signup');
-});
+/* LOGIN AND SIGNUP */
+  router.get('/login', (req, res, next) => {
+    res.render('Login/login', { "message": req.flash("error") })
+  });
 
-router.post('/signup', (req, res, next) => {
-  const {name, sex, lastname, age, email, password} = req.body
-  
-  if (email === "" || password === "") {
-    res.render("Login/signup", { message: "Indicate username and password" });
-    return;
-  }
+  router.post("/login", passport.authenticate("local", {
+    successRedirect: "/profile",
+    failureRedirect: "/login",
+    failureFlash: true,
+    passReqToCallback: true
+  }));
+
+  router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+  });
+
+  router.get('/signup', (req, res, next) => {
+    res.render('Login/signup');
+  });
+
+  router.post('/signup', (req, res, next) => {
+    const {name, sex, lastname, age, email, password} = req.body
+    
+    if (email === "" || password === "") {
+      res.render("Login/signup", { message: "Indicate username and password" });
+      return;
+    }
 
 
-  Usuarios.findOne({ email })
-    .then(user => {
-      if (user !== null) {
-        res.render("Login/signup", { message: "The username already exists" });
-        return;
-      }
+    Usuarios.findOne({ email })
+      .then(user => {
+        if (user !== null) {
+          res.render("Login/signup", { message: "The username already exists" });
+          return;
+        }
 
-      const salt = bcrypt.genSaltSync(bcryptSalt);
-      const hashPass = bcrypt.hashSync(password, salt);
+        const salt = bcrypt.genSaltSync(bcryptSalt);
+        const hashPass = bcrypt.hashSync(password, salt);
 
-      const newUser = new Usuarios()
-      newUser.nombre = name
-      newUser.apellidos = lastname
-      newUser.edad = age
-      newUser.email = email
-      newUser.password = hashPass
-      newUser.sexo = sex
+        const newUser = new Usuarios()
+        newUser.nombre = name
+        newUser.apellidos = lastname
+        newUser.edad = age
+        newUser.email = email
+        newUser.password = hashPass
+        newUser.sexo = sex
 
-      //guardamos el nuevo usuario
-      newUser.save().then(newUser => {
-        res.render('Login/signup_step_2', { newUser, estados })
-      }).catch(ex => {
-        console.log(ex)
-        next(ex)
+        //guardamos el nuevo usuario
+        newUser.save().then(newUser => {
+          res.render('Login/signup_step_2', { newUser, estados })
+        }).catch(ex => {
+          console.log(ex)
+          next(ex)
+        })
       })
-    })
-    .catch(error => {
-      next(error)
-    })
-});
-
-router.post('/signup_step_2', (req, res, next) => {
-  const { _id, estado, phone, about_me, about_pet, userprofile_picture} = req.body
-
-  Usuarios.updateOne({ "_id": _id }, { estado: estado,
-      telefono: phone,
-      descripcion: about_me,
-      mascota_ideal: about_pet,
-      image: userprofile_picture})
-      .then( user => {
-        res.redirect('/')
+      .catch(error => {
+        next(error)
       })
-      .catch(err => {
-        console.log(err)
-        next(err)
+  });
+
+  router.post('/signup_step_2', (req, res, next) => {
+    const { _id, estado, phone, about_me, about_pet, userprofile_picture} = req.body
+
+    Usuarios.updateOne({ "_id": _id }, { estado: estado,
+        telefono: phone,
+        descripcion: about_me,
+        mascota_ideal: about_pet,
+        image: userprofile_picture})
+        .then( user => {
+          res.redirect('/login')
+        })
+        .catch(err => {
+          next(err)
+        })
+  });
+
+/* END LOGIN AND SIGNUP */
+
+/* PRIVATE ROUTES */
+  //PET CRUD
+  router.get("/mascotas/new", ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    res.render("mascotas/new", { user: req.user });
+  });
+
+  router.post('/mascotas', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    const { nombre, edad, caracteristicas, descripcion, raza, talla, image, lugarAdopcion, horasVisitas, mail, requerimientos } = req.body
+    const newMascota = new Mascotas({ 
+      nombre,
+      edad,
+      caracteristicas,
+      descripcion,
+      raza,
+      talla,
+      image,
+      lugarAdopcion,
+      horasVisitas,
+      mail,
+      requerimientos})
+
+    newMascota.user_id = req.user._id
+
+    newMascota.save()
+      .then(mascotas => res.redirect(301, '/mascotas'))
+      .catch(err => next(err))
+  })
+
+  router.get('/mascotas/:id', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    let idMascotas = req.params.id
+    Mascotas.findOne({ _id: idMascotas }).then(mascotas => {
+      res.render('mascotas/show', { mascotas })
+    }).catch(err => console.log(err))
+  })
+
+  router.post('/mascotas/:id/delete', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    let idMascotas = req.params.id
+    Mascotas.findByIdAndRemove(idMascotas).then(() => res.redirect(301, '/mascotas'))
+      .catch(err => console.log(err))
+  })
+
+  router.get('/mascotas', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    Mascotas.find()
+      .then(mascotas => {
+        res.render('mascotas/listaMascotas', { mascotas })
       })
-});
-
-router.get('/mascotas/new', (req, res) => {
-  res.render('mascotas/new')
-})
-
-/*router.post('/mascotas/', (req, res) => {
-  const { nombre, edad, caracteristicas, descripcion, raza, talla, image, lugarAdopcion, horasVisitas, mail, requerimientos } = req.body
-  const newMascota = new Mascotas({ nombre, edad, caracteristicas, descripcion, raza, talla, image, lugarAdopcion, horasVisitas, mail, requerimientos })
-  newMascota.save()
-    .then(mascotas => res.redirect(301, '/mascotas'))
-    .catch(err => res.render('mascotas/new'))
-})
-
-router.get('/mascotas/:id', (req, res) => {
-  let idMascotas = req.params.id
-  Mascotas.findOne({ _id: idMascotas }).then(mascotas => {
-    res.render('mascotas/show', { mascotas })
-  }).catch(err => console.log(err))
-
-})
-
-router.post('/mascotas/:id/delete', (req, res) => {
-  let idMascotas = req.params.id
-  Mascotas.findByIdAndRemove(idMascotas).then(() => res.redirect(301, '/mascotas'))
-    .catch(err => console.log(err))
-})
-
-router.get('/mascotas', (req, res) => {
-  Mascotas.find()
-    .then(mascotas => {
-      res.render('mascotas/listaMascotas', { mascotas })
-    })
-})
-
-
-
-
-router.get('/usuario/new', (req, res) => {
-  res.render('usuario/new')
-
-})
-router.post('/usuarios', (req, res, next) => {
-  const { nombre, apellido, sexo, email, contraseña, edad, estado, descripcion, image, facebook, telefono  } = req.body
-  const newUsuario = new Usuarios({ nombre, apellido, sexo, email, contraseña, edad, estado, descripcion, image, facebook, telefono  })
-  newUsuario.save()
-    .then(usuarios => res.redirect(301, '/usuario'))
-    .catch(err => next(err))
-})
-
-
+  })
+  //END PET CRUD
+  //USER PROFILE
+  router.get('/profile', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    res.json({name: req.user.nombre})
+  })
+  //END USER PROFILE
+/* END PRIVATE ROUTES */
+/*
 router.get('/usuario/:id', (req, res) => {
   let idAUsuarios = req.params.id
   Usuarios.findOne({ _id: idUsuarios }).then(usuarios => {

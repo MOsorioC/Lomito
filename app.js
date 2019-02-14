@@ -1,17 +1,22 @@
 require('dotenv').config();
 
-const bodyParser   = require('body-parser');
-const cookieParser = require('cookie-parser');
-const express      = require('express');
-const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
-const mongoose     = require('mongoose');
-const logger       = require('morgan');
-const path         = require('path');
-
-const Mascotas = require('./models/mascota')
-const Usuarios = require('./models/user')
-
+const bodyParser    = require('body-parser');
+const cookieParser  = require('cookie-parser');
+const express       = require('express');
+const favicon       = require('serve-favicon');
+const hbs           = require('hbs');
+const mongoose      = require('mongoose');
+const logger        = require('morgan');
+const path          = require('path');
+//passport configuration
+const session       = require('express-session')
+const bcrypt        = require('bcrypt')
+const passport      = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const flash         = require('connect-flash')
+//end passport configuration
+//model user
+const User          = require('./models/user')
 
 mongoose
   .connect(process.env.DB, {useNewUrlParser: true})
@@ -32,6 +37,49 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//Passport configuration
+app.use(session({
+  secret: "@PetsAB",
+  resave: true,
+  saveUninitialized: true
+}))
+
+passport.serializeUser((user, cb) => {
+  cb(null, user._id)
+})
+
+passport.deserializeUser((id, cb) => {
+  User.findById(id, (err, user) => {
+    if (err) { return cb(err); }
+    cb(null, user)
+  })
+})
+
+app.use(flash())
+
+passport.use(new LocalStrategy((username, password, next) => {
+  
+  User.findOne({ "email": username }, (err, user) => {
+    if (err) {
+      return next(err)
+    }
+    if (!user) {
+      return next(null, false, { message: "Incorrect username" })
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+      return next(null, false, { message: "Incorrect password" })
+    }
+
+    return next(null, user)
+  })
+}))
+
+//initialize passport
+app.use(passport.initialize())
+app.use(passport.session())
+
+//end passport configuration
 
 // Express View engine setup
 
