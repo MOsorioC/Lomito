@@ -217,6 +217,18 @@ h3 {
   background: #F8F2FF;
   padding-top: 2em; }
 
+.m-t-20 {
+  padding-top: 20px; }
+
+.card {
+  margin-bottom: 20px; }
+
+.card-animal {
+  padding: 20px; }
+
+.carousel-inner {
+  height: 50vh; }
+
 /**
 * Queries
 */
