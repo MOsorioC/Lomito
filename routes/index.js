@@ -4,9 +4,12 @@ const estados = require('../models/estados')
 const Mascotas = require('../models/mascota')
 const Usuarios = require('../models/user')
 const Adopcion = require('../models/adopcion')
-
+//passport
 const passport = require("passport");
 const ensureLogin = require('connect-ensure-login')
+
+//upload files
+const uploadCloud = require('../config/cloudinary.js');
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -79,14 +82,15 @@ router.get('/', (req, res, next) => {
       })
   });
 
-  router.post('/signup_step_2', (req, res, next) => {
-    const { _id, estado, phone, about_me, about_pet, userprofile_picture} = req.body
+  router.post('/signup_step_2', uploadCloud.single('photo'), (req, res, next) => {
+    const { _id, estado, phone, about_me, about_pet} = req.body
 
     Usuarios.updateOne({ "_id": _id }, { estado: estado,
         telefono: phone,
         descripcion: about_me,
         mascota_ideal: about_pet,
-        image: userprofile_picture})
+        image: req.file.url
+      })
         .then( user => {
           res.redirect('/login')
         })
@@ -103,7 +107,7 @@ router.get('/', (req, res, next) => {
     res.render("mascotas/new", { user: req.user });
   });
 
-  router.post('/mascotas', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+  router.post('/mascotas', ensureLogin.ensureLoggedIn(), uploadCloud.single('image'), (req, res, next) => {
     const { nombre, edad, caracteristicas, descripcion, raza, talla, image, lugarAdopcion, horasVisitas, mail, requerimientos } = req.body
     const newMascota = new Mascotas({ 
       nombre,
@@ -141,10 +145,61 @@ router.get('/', (req, res, next) => {
   router.get('/mascotas', ensureLogin.ensureLoggedIn(), (req, res, next) => {
     Mascotas.find()
       .then(mascotas => {
-        res.render('mascotas/listaMascotas', { mascotas })
+        res.render('vista_mascotas', { mascotas })
       })
   })
+
+  router.get('/macotas/my_pets', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    Mascotas.find({user_id: req.user._id})
+    .then( pets => res.render('mascotas/my_pets'), {pets}).catch( err => next(err))
+  })
   //END PET CRUD
+
+  //ADOPTION
+
+  router.get('/adopcion/new', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    res.render('adopcion/new')
+  })
+
+  router.post('/adopcion', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+
+    const {pet_id, mensaje, fecha_solicitud, fecha_confirmada, adoptado, fecha_adopcion } = req.body
+
+    const newAdopcion = new Adopcion({ 
+      mensaje,
+      fecha_solicitud,
+      fecha_confirmada,
+      adoptado,
+      fecha_adopcion,
+      pet_id,
+      user_id: req.user._id})
+
+    newAdopcion.save()
+      .then(adopcion => res.redirect(301, '/adopcion'))
+      .catch(err => next(err))
+  })
+
+  router.get('/adopcion/:id', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    let idAdopcion = req.params.id
+    Adopcion.findOne({ _id: idAdopcion }).then(adopcion => {
+      res.render('adopcion/show', { adopcion })
+    }).catch(err => console.log(err))
+  })
+
+  router.get('/adopcion', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    Adopcion.find()
+      .then(adopcion => {
+        res.render('adopcion/listaAdopcion', { adopcion })
+      })
+  })
+  router.get('/adopcion/my_adoptions', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    Adopcion.find({user_id: req.user._id})
+    .then(adoptions => {
+      res.render('adopcion/misPeticiones', { adoptions})
+    }).catch(err => next(err))
+  })
+  //END ADOPTION
+
   //USER PROFILE
   router.get('/profile', ensureLogin.ensureLoggedIn(), (req, res, next) => {
     res.json({name: req.user.nombre})
@@ -157,7 +212,6 @@ router.get('/usuario/:id', (req, res) => {
   Usuarios.findOne({ _id: idUsuarios }).then(usuarios => {
     res.render('usuario/show', { usuarios})
   }).catch(err => console.log(err))
-
 })
 
 
@@ -165,40 +219,6 @@ router.get('/usuario', (req, res) => {
   Usuarios.find()
     .then(usuarios => {
       res.render('usuario/listaUsuarios', {usuarios})
-    })
-})
-
-router.get('/adopcion/new', (req, res) => {
-  res.render('adopcion/new')
-
-})
-
-
-
-router.post('/adopcion', (req, res, next) => {
-
-  const { mensaje, fecha_solicitud, fecha_confirmada, adoptado, fecha_adopcion } = req.body
-  console.log('entro')
-  console.log(mensaje, fecha_solicitud, fecha_confirmada, adoptado, fecha_adopcion )
-  const newAdopcion = new Adopcion({ mensaje, fecha_solicitud, fecha_confirmada, adoptado, fecha_adopcion })
-  newAdopcion.save()
-    .then(adopcion => res.redirect(301, '/adopcion'))
-    .catch(err => next(err))
-})
-
-
-router.get('/adopcion/:id', (req, res) => {
-  let idAdopcion = req.params.id
-  Adopcion.findOne({ _id: idAdopcion }).then(adopcion => {
-    res.render('adopcion/show', { adopcion })
-  }).catch(err => console.log(err))
-
-})
-
-router.get('/adopcion', (req, res) => {
-  Adopcion.find()
-    .then(adopcion => {
-      res.render('adopcion/listaAdopcion', { adopcion })
     })
 })*/
 

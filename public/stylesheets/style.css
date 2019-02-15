@@ -138,7 +138,7 @@ ul.steps > li {
   border-radius: 7px;
   cursor: default; }
 
-#filePhoto {
+#photo {
   position: absolute;
   opacity: 0;
   cursor: pointer;

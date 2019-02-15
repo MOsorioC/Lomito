@@ -20,8 +20,14 @@ const usuarioSchema = new Schema({
   telefono: Number,
   typeUSer: {
     type: String,
-    enum: ['normal', 'adoptar']
+    enum: ['normal', 'adoptar'],
+    default: 'normal'
   },
+  role_user: {
+    type: String,
+    enum: ['GUEST', 'ADMIN'],
+    default: 'GUEST'
+  }
 }, {
     timestamps: {
       createdAt: "created_at",

@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col-12 mt-5">
-                <form action="/signup_step_2" method="post" class="m-l-64 m-r-64">
+                <form action="/signup_step_2" method="post" class="m-l-64 m-r-64" enctype="multipart/form-data">
                     <div class="row">
                         <input type="hidden" name="_id" value="{{newUser._id}}">
                         <div class="col-lg-6 col-xs-12">
@@ -53,9 +53,9 @@
                     <div class="row">
                         <div class="col-lg-12 col-xs-12">
                             <div class="form-group">
-                                <div onclick="$('#filePhoto').click()" class="uploader">
-                                    sube una pinshi imagen
-                                    <input class="teste" type="file" size="32" name="userprofile_picture" id="filePhoto" />
+                                <div onclick="$('#photo').click()" class="uploader">
+                                    Sube una imagen
+                                    <input class="teste" type="file" name="photo" id="photo" />
                                 </div>
                             </div>
                         </div>

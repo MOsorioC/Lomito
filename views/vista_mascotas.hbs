@@ -24,46 +24,19 @@
 
 <div class="container m-t-20">
     <div class="row">
-        <div class="col-lg-4">
-            <div class="card " style="width: 100%;">
-                <img class="card-img-top" src="images/img-card.png" alt="Card image cap">
-                <div class="card-block card-animal">
-                    <h4 class="card-title">Momo / 5 años</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                        content.</p>
-                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary btn-primary-outlet btn-circle">Ver más</button>
-
+        {{#each mascotas}}
+            <div class="col-lg-4">
+                <div class="card " style="width: 100%;">
+                    <img class="card-img-top" src="{{this.image}}" alt="Card image cap">
+                    <div class="card-block card-animal">
+                        <h4 class="card-title">{{this.nombre}} / {{this.edad}} años</h4>
+                        <p class="card-text">{{this.descripcion}}</p>
+                        <a href="mascotas/{{this._id}}" class="btn btn-lg btn-block btn-outline-primary btn-primary-outlet btn-circle">Ver
+                            más</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card " style="width: 100%;">
-                <img class="card-img-top" src="images/img-card.png" alt="Card image cap">
-                <div class="card-block card-animal">
-                    <h4 class="card-title">Momo / 5 años</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                        content.</p>
-                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary btn-primary-outlet btn-circle">Ver
-                        más</button>
-        
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card " style="width: 100%;">
-                <img class="card-img-top" src="images/img-card.png" alt="Card image cap">
-                <div class="card-block card-animal">
-                    <h4 class="card-title">Momo / 5 años</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                        content.</p>
-                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary btn-primary-outlet btn-circle">Ver
-                        más</button>
-        
-                </div>
-            </div>
-        </div>
-        
-        
+        {{/each}}
     </div>
 
 </div>

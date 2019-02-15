@@ -9,11 +9,13 @@ const petSchema = new Schema({
   descripcion: String,
   raza: {
     type: String,
-    enum: ['golden', 'chihuahua', 'labrador', 'extragrande ']
+    enum: ['golden', 'chihuahua', 'labrador', 'extragrande '],
+    default: 'golden'
   },
   talla: {
     type: String,
-    enum: ['chico', 'mediano', 'grande', 'extragrande ']
+    enum: ['chico', 'mediano', 'grande', 'extragrande '],
+    default: 'chico'
   },
   image: String,
   direccionAdopcion: String,

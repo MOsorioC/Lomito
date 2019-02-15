@@ -49,15 +49,15 @@ const Pet = [
         nombre: 'Momo',
         edad: 5,
         caracteristicas: 'amarillita',
-        descripcion: 'perrito tranquilo',
+        descripcion: 'perrito tranquilo, hermoso debes adpotarlo ya!!',
         raza: 'golden',
         talla: "chico",
-        image: "foto",
         direccionAdopcion: "mexico",
         horasInicio: "10am",
         horasFin: "12am",
         requerimientos: "tener un palacio",
-        user_id: ''
+        user_id: '',
+        image: 'https://cdn.newsapi.com.au/image/v1/67a523605bca40778c6faaad93883a3b'
     }
 ]
 
