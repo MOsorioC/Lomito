@@ -9,12 +9,12 @@ const petSchema = new Schema({
   descripcion: String,
   raza: {
     type: String,
-    enum: ['golden', 'chihuahua', 'labrador', 'extragrande '],
+    enum: ['golden', 'chihuahua', 'labrador', 'pug', 'otro'],
     default: 'golden'
   },
   talla: {
     type: String,
-    enum: ['chico', 'mediano', 'grande', 'extragrande '],
+    enum: ['chico', 'mediano', 'grande', 'extragrande'],
     default: 'chico'
   },
   image: String,
@@ -22,7 +22,10 @@ const petSchema = new Schema({
   horasInicio: String,
   horasFin: String,
   requerimientos:String,
-  status: Number,//debe ser numero 1,2,3 [1 => adoptado, 2 en proceso, 3 => no adoptado]
+  status: {
+    type: Number,
+    default: 3
+  },//debe ser numero 1,2,3 [1 => adoptado, 2 en proceso, 3 => no adoptado]
   user_id: { type: Schema.ObjectId, ref: 'Usuario' },
 },{
     timestamps: {

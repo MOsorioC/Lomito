@@ -30,7 +30,7 @@ router.get('/', (req, res, next) => {
   });
 
   router.post("/login", passport.authenticate("local", {
-    successRedirect: "/profile",
+    successRedirect: "/mascotas",
     failureRedirect: "/login",
     failureFlash: true,
     passReqToCallback: true
@@ -134,8 +134,8 @@ router.get('/', (req, res, next) => {
     res.render("mascotas/new", { user: req.user });
   });
 
-  router.post('/mascotas', ensureLogin.ensureLoggedIn(), uploadCloud.single('image'), (req, res, next) => {
-    const { nombre, edad, caracteristicas, descripcion, raza, talla, image, lugarAdopcion, horasVisitas, mail, requerimientos } = req.body
+  router.post('/mascotas', ensureLogin.ensureLoggedIn(), uploadCloud.single('photo'), (req, res, next) => {
+    const { nombre, edad, caracteristicas, descripcion, raza, talla, direccionAdopcion, requerimientos, horasInicio } = req.body
     const newMascota = new Mascotas({ 
       nombre,
       edad,
@@ -143,10 +143,9 @@ router.get('/', (req, res, next) => {
       descripcion,
       raza,
       talla,
-      image,
-      lugarAdopcion,
-      horasVisitas,
-      mail,
+      image: req.file.url,
+      direccionAdopcion,
+      horasInicio,
       requerimientos})
 
     newMascota.user_id = req.user._id
