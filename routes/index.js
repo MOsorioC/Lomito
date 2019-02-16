@@ -17,7 +17,7 @@ const bcryptSalt = 10;
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('landing');
+  res.render('vista_mascota_interna.hbs');
 });
 
 
