@@ -1,29 +1,106 @@
-<form action="/mascotas" method="POST">
-    <label for="nombre">Name</label>
-    <input type="text" name="nombre" value="" placeholder="escribe un nuevo nombre" />
-    <label for="edad">edad</label>
-    <input type="number" name="edad" value="" placeholder="escribe la edad" />
-    <label for="caracteristicas">caracteristicas</label>
-    <input type="text" name="caracteristicas" value="" placeholder="escribe las caracteristicas">
-    <label for="descripcion">descripcion</label>
-    <input type="text" name="descripcion" value="" placeholder="escribe la descripcion">
-    <label for="raza">raza</label>
-    <input type="text" name="raza" value="" placeholder="escribe la raza">
-    <label for="talla">talla</label>
-    <input type="text" name="talla" value="" placeholder="escribe la talla">
-    <label for="image">image</label>
-    <input type="text" name="image" value="" placeholder="escribe la image">
-    <label for="direccionAdopcion">direccion de adopcion</label>
-    <input type="text" name="direccionAdopcion" value="" placeholder="escribe la image">
-    <label for="horasInicio">horas Inicio</label>
-    <input type="text" name="horasInicio" value="" placeholder="horas de Inicio">
-    <label for="requerimientos">requerimientos</label>
-    <input type="text" name="requerimientos" value="" placeholder="requerimientos">
-    <label for="status">status</label>
-    <input type="text" name="status" value="" placeholder="status">
-    <label for="adoptante_id">adoptante_id</label>
-    <input type="text" name="adoptante_id" value="" placeholder="status">
+<nav class="navbar navbar-expand-lg navbar-light bg-morado sticky-top">
+    <a class="navbar-brand" href="#"><img class="img-logotipo" src="images/img-logotipo.svg"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarText">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
 
+        </ul>
+        <button type="button" class="btn btn-outline-secondary">Primary</button>
+    </div>
+</nav>
+<div class="container p-2">
+    <div class="row">
+    <div class="col-8 offset-md-2">
+        <div class="card col-12 justify-content-center">
+            <div class="card-body">
+            <h5 class="card-title">Subir mascota</h5>
+            <form action="/mascotas" method="POST">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Escribe tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="edad">Edad</label>
+                        <input class="form-control" type="number" name="edad" value="" placeholder="Escribe la edad" />
 
-    <button type="submit">Agregar</button>
-</form>
+                    </div>
+                    <div class="form-group">
+                        <label for="caracteristicas">Caracteristicas</label>
+                        <input class="form-control" type="text" name="caracteristicas" value="" placeholder="Escribe las caracteristicas">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion</label>
+                        <input class="form-control" type="text" name="descripcion" value="" placeholder="Escribe la descripcion">
+                    </div>
+                    <div class="form-group">
+                        <label for="raza">Raza</label>
+                        <input class="form-control" type="text" name="raza" value="" placeholder="Escribe la raza">
+                    </div>
+                    <div class="form-group">
+                        <label for="talla">Talla</label>
+                        <input class="form-control" type="text" name="talla" value="" placeholder="Escribe la talla">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input class="form-control" type="text" name="image" value="" placeholder="escribe la image">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="direccionAdopcion">Dirección de adopcion</label>
+                        <input class="form-control" type="text" name="direccionAdopcion" value="" placeholder="escribe la image">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="horasInicio">Horas Inicio</label>
+                        <input class="form-control" type="text" name="horasInicio" value="" placeholder="horas de Inicio">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="requerimientos">Requerimientos</label>
+                        <input class="form-control" type="text" name="requerimientos" value="" placeholder="requerimientos">
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input class="form-control" type="text" name="status" value="" placeholder="status">
+                    </div>
+                    <div class="form-group">
+                        <label for="adoptante_id">Adoptante_id</label>
+                        <input class="form-control" type="text" name="adoptante_id" value="" placeholder="status">
+                    </div>
+                   
+                </div>
+            </div>
+
+           
+               
+              
+       
+                <div class="form-group text-center">
+                    <button type="submit" class=" justify-content-centerbtn btn-lg btn-small-width btn-outline-primary btn-primary-outlet btn-circle">Enviar</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
