@@ -13,11 +13,10 @@
                 <a class="nav-link" href="/mascotas/my_pets/all">Mis Mascotas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/">Log Out</a>
-            </li>
-
+                <a class="nav-link" href="/mascotas/new">Agregar mascota</a>
+            </li>        
         </ul>
-        <button type="button" class="btn btn-outline-secondary">Primary</button>
+        <a href="/logout" class="btn btn-outline-secondary">Log Out</a>
     </div>
 </nav>
 <div class="container p-2">
@@ -64,7 +63,7 @@
                             <div class="form-group">
                                 <div onclick="$('#photo').click()" class="uploader">
                                     Sube una imagen
-                                    <input class="teste" type="file" name="photo" id="photo" />
+                                    <input class="teste" type="file" name="photo" id="photo" required/>
                                 </div>
                             </div>
                             <div class="form-group">
