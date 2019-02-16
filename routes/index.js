@@ -20,7 +20,7 @@ const validator = require('validator');
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('vista_mascota_interna.hbs');
+  res.render('landing');
 });
 
 
@@ -156,10 +156,10 @@ router.get('/', (req, res, next) => {
   })
 
   router.get('/mascotas/:id', ensureLogin.ensureLoggedIn(), (req, res, next) => {
-    let idMascotas = req.params.id
-    Mascotas.findOne({ _id: idMascotas }).then(mascotas => {
-      res.render('mascotas/show', { mascotas })
-    }).catch(err => console.log(err))
+    let idMascota = req.params.id
+    Mascotas.findOne({ _id: idMascota }).then(mascota => {
+      res.render('vista_mascota_interna', { mascota })
+    }).catch(err => next(err))
   })
 
   router.post('/mascotas/:id/delete', ensureLogin.ensureLoggedIn(), (req, res, next) => {
@@ -169,7 +169,7 @@ router.get('/', (req, res, next) => {
   })
 
   router.get('/mascotas', ensureLogin.ensureLoggedIn(), (req, res, next) => {
-    Mascotas.find()
+    Mascotas.find({status: 3})
       .then(mascotas => {
         res.render('vista_mascotas', { mascotas })
       })
@@ -189,19 +189,20 @@ router.get('/', (req, res, next) => {
 
   router.post('/adopcion', ensureLogin.ensureLoggedIn(), (req, res, next) => {
 
-    const {pet_id, mensaje, fecha_solicitud, fecha_confirmada, adoptado, fecha_adopcion } = req.body
+    const {pet_id, mensaje, fecha_solicitud} = req.body
 
     const newAdopcion = new Adopcion({ 
       mensaje,
       fecha_solicitud,
-      fecha_confirmada,
-      adoptado,
-      fecha_adopcion,
       pet_id,
       user_id: req.user._id})
 
     newAdopcion.save()
-      .then(adopcion => res.redirect(301, '/adopcion'))
+      .then(adopcion => 
+        //actualizamos el status de la mascota
+        Mascotas.updateOne({ _id: pet_id}, {status: 2}).then(() => {
+          res.redirect(301, '/mascotas')
+        }).catch(err => next(err)))
       .catch(err => next(err))
   })
 
