@@ -71,12 +71,12 @@ router.get('/', (req, res, next) => {
      * (?=.* [A - Z]) -> Debe contener una letra mayúscula
      * [a - zA - Z0 - 9]{ 8,} -> Debe ser 8 caracteres como minimo
      */
-    let resultPassword = /^(?=.*\d)(?=.* [a - z])(?=.* [A - Z])[a - zA - Z0 - 9]{ 8,}$/.test(password);
+    /*let resultPassword = /^(?=.*\d)(?=.* [a - z])(?=.* [A - Z])[a - zA - Z0 - 9]{ 8,}$/.test(password);
 
     if (!resultPassword) {
       res.render("Login/signup", { message: "La contraseña debe contener minimo 8 caracteres, una letra minúscula, una letra mayúscula y 1 número" })
       return;
-    }
+    }*/
 
     Usuarios.findOne({ email })
       .then(user => {
