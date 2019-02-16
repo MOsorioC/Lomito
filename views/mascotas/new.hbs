@@ -25,7 +25,11 @@
     <div class="col-8 offset-md-2">
         <div class="card col-12 justify-content-center">
             <div class="card-body">
-            <h5 class="card-title">Subir mascota</h5>
+            <img id="profile-photo" class="logotipo rounded-circle align-center" src="https://pbs.twimg.com/profile_images/700451535994671104/YkR_JUwH_400x400.png">
+            <div class="col-12 text-center">
+                <h1>Subir mascota</h1>
+                
+            </div>
             <form action="/mascotas" method="POST">
             <div class="row">
                 <div class="col-6">
@@ -58,9 +62,10 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
-                        <label for="image">Image</label>
-                        <input class="form-control" type="text" name="image" value="" placeholder="escribe la image">
-
+                        <div onclick="$('#photo').click()" class="uploader">
+                            Sube una imagen
+                            <input class="teste" type="file" name="photo" id="photo" />
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="direccionAdopcion">Dirección de adopcion</label>
@@ -104,3 +109,16 @@
     </div>
 </div>
 
+<script>
+    window.onload = () => {
+        var imageLoader = document.getElementById('photo');
+        imageLoader.addEventListener('change', (e) => {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                console.log(event.target.result)
+                $('#profile-photo').attr('src', event.target.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }, false);
+    }
+</script>
