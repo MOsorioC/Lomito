@@ -1,44 +1,47 @@
 
+<nav class="navbar navbar-expand-lg navbar-light bg-morado sticky-top">
+    <a class="navbar-brand" href="#"><img class="img-logotipo" src="images/img-logotipo.svg"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarText">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
 
+        </ul>
+        <button type="button" class="btn btn-outline-secondary">Primary</button>
+    </div>
+</nav>
+<div class="container">
+    <h1>Tus mascotas</h1>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
 
-<h1>Mascotas</h1>
-<table>
-    <tr>
-        <th>Nombre</th>
-        <th>Edad</th>
-        <th>Caracteristicas</th>
-        <th>descripcion</th>
-        <th>raza</th>
-        <th>talla</th>
-        <th>image</th>
-        <th>lugar Adopcion</th>
-        <th>horas vistias</th>
-        <th>mail</th>
-        <th>requerimientos</th>
+                <img class="logotipo rounded-circle align-center" src="https://pbs.twimg.com/profile_images/700451535994671104/YkR_JUwH_400x400.png">
+                <h5>Nombre: {{this.nombre}}</h5>
+                <h5>Edad: {{this.edad}}</h5>
+                <h5>Status: {{this.status}}</h5>
+
+                <a class="card-link" href='/mascotas/{{this._id}}'>Ver más</a>
+                <a class="card-link" href="#" type="submit">remove</a>
+            
+                
+            
+
         
-    </tr>
-    {{#each mascotas}}
-    <tr>
-        <td>{{this.nombre}}</td>
-        <td>{{this.edad}}</td>
-        <td>{{this.caracteristicas}}</td>
-        <td>{{this.descripcion}}</td>
-        <td>{{this.raza}}</td>
-        <td>{{this.talla}}</td>
-        <td>{{this.image}}</td>
-        <td>{{this.direccionAdopcion}}</td>
-        <td>{{this.horasVisitas}}</td>
-        <td>{{this.mail}}</td>
-        <td>{{this.requerimientos}}</td>
-        <td>{{this.status}}</td>
-        <td>{{this.adoptante_id}}</td>
-        <td><a href='/mascotas/{{this._id}}'>Ver más</a></td>
-        <td>
-            <form action="/mascotas/{{this._id}}/delete" method="post">
-                <button type="submit">remove</button>
-            </form>
-        </td>
-      
-    </tr>
-    {{/each}}
-</table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
