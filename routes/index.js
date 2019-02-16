@@ -162,9 +162,9 @@ router.get('/', (req, res, next) => {
     }).catch(err => next(err))
   })
 
-  router.post('/mascotas/:id/delete', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+  router.get('/mascotas/delete/:id', ensureLogin.ensureLoggedIn(), (req, res, next) => {
     let idMascotas = req.params.id
-    Mascotas.findByIdAndRemove(idMascotas).then(() => res.redirect(301, '/mascotas'))
+    Mascotas.findByIdAndRemove(idMascotas).then(() => res.redirect(301, '/mascotas/my_pets/all'))
       .catch(err => console.log(err))
   })
 
@@ -175,9 +175,9 @@ router.get('/', (req, res, next) => {
       })
   })
 
-  router.get('/macotas/my_pets', ensureLogin.ensureLoggedIn(), (req, res, next) => {
-    Mascotas.find({user_id: req.user._id})
-    .then( pets => res.render('mascotas/my_pets'), {pets}).catch( err => next(err))
+  router.get('/mascotas/my_pets/all', ensureLogin.ensureLoggedIn(), (req, res, next) => {
+    Mascotas.find({ user_id: req.user._id})
+      .then(mascotas => res.render('mascotas/listaMascotas', {mascotas})).catch( err => next(err))
   })
   //END PET CRUD
 

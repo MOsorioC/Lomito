@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-morado sticky-top">
-    <a class="navbar-brand" href="#"><img class="img-logotipo" src="images/img-logotipo.svg"></a>
+    <a class="navbar-brand" href="#"><img class="img-logotipo" src="../../images/img-logotipo.svg"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,25 +23,21 @@
 </nav>
 <div class="container">
     <h1>Tus mascotas</h1>
-    <div class="col-4">
-        <div class="card">
-            <div class="card-body">
-
-                <img class="logotipo rounded-circle align-center" src="https://pbs.twimg.com/profile_images/700451535994671104/YkR_JUwH_400x400.png">
-                <h5>Nombre: {{this.nombre}}</h5>
-                <h5>Edad: {{this.edad}}</h5>
-                <h5>Status: {{this.status}}</h5>
-
-                <a class="card-link" href='/mascotas/{{this._id}}'>Ver más</a>
-                <a class="card-link" href="#" type="submit">remove</a>
-            
-                
-            
-
+    {{#each mascotas}}
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
         
-
+                    <img class="logotipo rounded-circle align-center"
+                        src="{{this.image}}">
+                    <h5>Nombre: {{this.nombre}}</h5>
+                    <h5>Edad: {{this.edad}}</h5>
+                    <h5>Status: {{this.status}}</h5>
+        
+                    <a class="card-link" href='/mascotas/{{this._id}}'>Ver más</a>
+                    <a class="card-link" href="/mascotas/delete/{{this._id}}" type="submit">remove</a>
+                </div>
             </div>
         </div>
-
-    </div>
+    {{/each}}
 </div>
