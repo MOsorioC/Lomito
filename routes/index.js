@@ -15,6 +15,9 @@ const uploadCloud = require('../config/cloudinary.js');
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
+//Validator
+const validator = require('validator');
+
 /* GET home page */
 router.get('/', (req, res, next) => {
   res.render('landing');
@@ -45,11 +48,35 @@ router.get('/', (req, res, next) => {
   router.post('/signup', (req, res, next) => {
     const {name, sex, lastname, age, email, password} = req.body
     
-    if (email === "" || password === "") {
-      res.render("Login/signup", { message: "Indicate username and password" });
+    if(!validator.isNumeric(age)) {
+      res.render("Login/signup", { message: "Recuerda que tu edad debe ser numérica" });
       return;
     }
 
+    //hacemos validaciones de usuario y password
+    if(!validator.isEmail(email)) {
+      res.render("Login/signup", { message: "Debes ingresar un email válido" });
+      return;
+    }
+
+    if(validator.isEmpty(password)) {
+      res.render("Login/signup", { message: "Debes ingresar tu contraseña"})
+      return;
+    }
+
+    //regex para validar password
+    /**
+     * (?=.*\d) -> Debe contener un número
+     * (?=.* [a - z]) -> Debe contener una letra minuscula
+     * (?=.* [A - Z]) -> Debe contener una letra mayúscula
+     * [a - zA - Z0 - 9]{ 8,} -> Debe ser 8 caracteres como minimo
+     */
+    let resultPassword = /^(?=.*\d)(?=.* [a - z])(?=.* [A - Z])[a - zA - Z0 - 9]{ 8,}$/.test(password);
+
+    if (!resultPassword) {
+      res.render("Login/signup", { message: "La contraseña debe contener minimo 8 caracteres, una letra minúscula, una letra mayúscula y 1 número" })
+      return;
+    }
 
     Usuarios.findOne({ email })
       .then(user => {
@@ -192,6 +219,7 @@ router.get('/', (req, res, next) => {
         res.render('adopcion/listaAdopcion', { adopcion })
       })
   })
+  
   router.get('/adopcion/my_adoptions', ensureLogin.ensureLoggedIn(), (req, res, next) => {
     Adopcion.find({user_id: req.user._id})
     .then(adoptions => {
