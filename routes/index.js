@@ -20,7 +20,7 @@ const validator = require('validator');
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('landing');
+  res.render('vista_mascota_interna.hbs');
 });
 
 
